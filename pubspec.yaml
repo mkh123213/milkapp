@@ -1,0 +1,58 @@
+name: milkapp
+description: "دفتر الحليب — Daily milk collection management app"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+
+  # Firebase
+  firebase_core: ^3.4.0
+  firebase_auth: ^5.2.0
+  cloud_firestore: ^5.4.0
+
+  # State management
+  flutter_bloc: ^9.0.0
+  get_it: ^8.0.0
+
+  # Localization
+  easy_localization: ^3.0.7
+
+  # Navigation
+  go_router: ^14.2.0
+
+  # Charts
+  fl_chart: ^0.68.0
+
+  # Connectivity / offline
+  connectivity_plus: ^6.0.3
+
+  # Local cache
+  shared_preferences: ^2.3.2
+
+  # PDF generation
+  pdf: ^3.11.1
+  printing: ^5.13.1
+
+  # Sharing (WhatsApp)
+  share_plus: ^10.0.0
+  url_launcher: ^6.3.0
+
+  # Internationalization
+  intl: ^0.20.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/translations/
