@@ -41,7 +41,7 @@ class ReportsRemoteDataSource {
     final totalWeight = entries.where((e) => e.entryStatus == EntryStatus.recorded).fold(0.0, (acc, e) => acc + (e.currentWeightKg ?? 0));
     final noMilkCount = entries.where((e) => e.entryStatus == EntryStatus.noMilk).length;
     final editedCount = entries.where((e) => e.isEdited).length;
-    final recordedDays = entries.length;
+    final recordedDays = entries.map((e) => '${e.supplierId}_${e.dateKey}').toSet().length;
     final expectedDays = activeSupplierCount * 7;
     final missingCount = expectedDays - recordedDays;
     await updateReport(uid, reportId, {

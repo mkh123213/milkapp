@@ -77,7 +77,7 @@ class MilkEntry {
             entryStatus == EntryStatus.noMilk ? 'no_milk' : 'recorded',
         'editCount': editCount,
         'editReason': editReason,
-        'createdAt': Timestamp.fromDate(createdAt),
+        'createdAt': id.isEmpty ? FieldValue.serverTimestamp() : Timestamp.fromDate(createdAt),
         'editedAt': editedAt != null ? Timestamp.fromDate(editedAt!) : null,
         'editedBy': editedBy,
       };

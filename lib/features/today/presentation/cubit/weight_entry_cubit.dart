@@ -23,15 +23,22 @@ class WeightEntryCubit extends Cubit<WeightEntryState> {
     emit(const WeightEntrySaving());
     try {
       final today = DateTime.now();
+      final dateKey = MilkDateUtils.toDateKey(today);
+      final existingEntry = await _todayRepo.getEntryForDate(uid, supplierId, dateKey);
+      if (existingEntry != null) {
+        emit(const WeightEntryError('entry_already_exists'));
+        return;
+      }
+      final roundedWeight = (weight * 10).round() / 10;
       final entry = MilkEntry(
         id: '',
         supplierId: supplierId,
         supplierName: supplierName,
         date: today,
-        dateKey: MilkDateUtils.toDateKey(today),
+        dateKey: dateKey,
         weekKey: MilkDateUtils.getWeekKey(today),
-        originalWeightKg: weight,
-        currentWeightKg: weight,
+        originalWeightKg: roundedWeight,
+        currentWeightKg: roundedWeight,
         entryStatus: EntryStatus.recorded,
         createdAt: today,
         editReason: notes?.trim().isEmpty == true ? null : notes?.trim(),
@@ -52,12 +59,18 @@ class WeightEntryCubit extends Cubit<WeightEntryState> {
     emit(const WeightEntrySaving());
     try {
       final today = DateTime.now();
+      final dateKey = MilkDateUtils.toDateKey(today);
+      final existingEntry = await _todayRepo.getEntryForDate(uid, supplierId, dateKey);
+      if (existingEntry != null) {
+        emit(const WeightEntryError('entry_already_exists'));
+        return;
+      }
       final entry = MilkEntry(
         id: '',
         supplierId: supplierId,
         supplierName: supplierName,
         date: today,
-        dateKey: MilkDateUtils.toDateKey(today),
+        dateKey: dateKey,
         weekKey: MilkDateUtils.getWeekKey(today),
         entryStatus: EntryStatus.noMilk,
         createdAt: today,
