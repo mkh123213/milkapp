@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/utils/date_utils.dart';
@@ -66,8 +67,8 @@ class Last7DaysTab extends StatelessWidget {
                   entry == null
                       ? const Text('—', style: TextStyle(color: AppColors.textSecondary))
                       : entry.entryStatus == EntryStatus.noMilk
-                          ? const Text('لا يوجد حليب', style: TextStyle(color: AppColors.noMilk, fontSize: 13))
-                          : Text('${MilkDateUtils.toArabicNumeralsStr((entry.currentWeightKg ?? 0).toStringAsFixed(1))} كغ', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
+                          ? Text('no_milk_label'.tr(), style: const TextStyle(color: AppColors.noMilk, fontSize: 13))
+                          : Text('${MilkDateUtils.toArabicNumeralsStr((entry.currentWeightKg ?? 0).toStringAsFixed(1))} ${'unit_kg'.tr()}', style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary)),
                 ],
               ),
             );

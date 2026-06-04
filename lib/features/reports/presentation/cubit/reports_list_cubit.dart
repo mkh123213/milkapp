@@ -12,6 +12,7 @@ class ReportsListCubit extends Cubit<ReportsListState> {
   final SuppliersRepo _suppliersRepo;
   final AuthRepo _authRepo;
   StreamSubscription? _sub;
+  bool _isCreating = false;
 
   ReportsListCubit(this._reportsRepo, this._suppliersRepo, this._authRepo)
       : super(const ReportsListLoading());
@@ -27,11 +28,14 @@ class ReportsListCubit extends Cubit<ReportsListState> {
   }
 
   Future<String?> createReport() async {
+    if (_isCreating) return null;
     final uid = _uid;
     if (uid == null) return null;
+    _isCreating = true;
+    try {
     final weekKey = MilkDateUtils.getWeekKey(DateTime.now());
     final existing = await _reportsRepo.getReportForWeek(uid, weekKey);
-    if (existing != null) return existing.id;
+    if (existing != null) { _isCreating = false; return existing.id; }
 
     final current = state;
     if (current is ReportsListLoaded) emit(ReportsListCreating(current.reports));
@@ -49,6 +53,9 @@ class ReportsListCubit extends Cubit<ReportsListState> {
     final id = await _reportsRepo.createReport(uid, report);
     await _reportsRepo.refreshReportStats(uid, id, weekKey, activeSuppliers.length);
     return id;
+    } finally {
+      _isCreating = false;
+    }
   }
 
   @override

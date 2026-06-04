@@ -124,11 +124,12 @@ class TodayReceivingBody extends StatelessWidget {
   Widget _list(BuildContext ctx, TodayState state, List list, {bool isPending = false}) {
     if (list.isEmpty) return Center(child: Text('no_items'.tr(), style: const TextStyle(color: AppColors.textSecondary)));
     return ListView.builder(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       padding: const EdgeInsets.fromLTRB(12, 8, 12, 80),
       itemCount: list.length,
       itemBuilder: (_, i) {
         final supplier = list[i];
-        final entry = ctx.read<TodayCubit>().state.entriesMap[supplier.id];
+        final entry = state.entriesMap[supplier.id];
         return PendingCard(
           supplier: supplier, entry: entry, isLocked: state.isWeekLocked,
           onWeightEntry: isPending && !state.isWeekLocked ? () => showWeightEntrySheet(ctx, supplier) : null,

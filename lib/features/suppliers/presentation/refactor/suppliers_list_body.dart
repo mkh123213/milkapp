@@ -40,6 +40,7 @@ class SuppliersListBody extends StatelessWidget {
                   );
                 }
                 return ListView.builder(
+                  keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
                   itemCount: filtered.length,
                   padding: const EdgeInsets.fromLTRB(12, 8, 12, 80),
                   itemBuilder: (_, i) {

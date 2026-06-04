@@ -13,6 +13,7 @@ class SuppliersListCubit extends Cubit<SuppliersListState> {
   final AuthRepo _authRepo;
   StreamSubscription? _suppliersSub;
   StreamSubscription? _weekSub;
+  Timer? _searchDebounce;
 
   SuppliersListCubit(this._suppliersRepo, this._todayRepo, this._authRepo)
       : super(const SuppliersListState());
@@ -36,7 +37,8 @@ class SuppliersListCubit extends Cubit<SuppliersListState> {
 
   void setSearch(String query) {
     emit(state.copyWith(search: query));
-    _applyFilter();
+    _searchDebounce?.cancel();
+    _searchDebounce = Timer(const Duration(milliseconds: 300), _applyFilter);
   }
 
   void setFilterMode(String mode) {
@@ -75,6 +77,7 @@ class SuppliersListCubit extends Cubit<SuppliersListState> {
   Future<void> close() {
     _suppliersSub?.cancel();
     _weekSub?.cancel();
+    _searchDebounce?.cancel();
     return super.close();
   }
 }

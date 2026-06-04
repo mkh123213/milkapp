@@ -271,5 +271,20 @@
   "offline_banner": "وضع عدم الاتصال — سيتم الحفظ عند عودة الاتصال",
 
   "absent_since": "غائب منذ {} أيام",
-  "absent_week": "غائب منذ أسبوع"
+  "absent_week": "غائب منذ أسبوع",
+
+  "phone_error_short": "رقم الهاتف قصير جداً (٩ أرقام على الأقل)",
+  "entry_already_exists": "يوجد سجل بالفعل لهذا المربّي اليوم",
+  "weight_label": "الوزن (كغ)",
+  "discard_changes_title": "تجاهل التغييرات؟",
+  "discard_changes_body": "لديك تغييرات غير محفوظة. هل تريد تجاهلها؟",
+  "discard": "تجاهل",
+  "high_weight_warning": "تنبيه: الوزن المدخل مرتفع جداً",
+  "edit_weight_warning": "تنبيه: لن تتمكن من تعديل هذا الوزن مرة أخرى بعد الحفظ",
+  "new_weight_label": "الوزن الجديد (كغ)",
+  "custom_reason_hint": "اكتب السبب...",
+  "edit_reason_wrong_weight": "وزن خاطئ",
+  "edit_reason_wrong_supplier": "مربّي خاطئ",
+  "edit_reason_scale_error": "خطأ في الميزان",
+  "edit_reason_other": "أخرى"
 }

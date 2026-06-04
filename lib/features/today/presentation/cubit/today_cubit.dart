@@ -18,6 +18,7 @@ class TodayCubit extends Cubit<TodayState> {
   StreamSubscription? _suppliersSub;
   StreamSubscription? _entriesSub;
   StreamSubscription? _reportsSub;
+  Timer? _searchDebounce;
 
   TodayCubit(this._todayRepo, this._suppliersRepo, this._reportsRepo, this._authRepo)
       : super(const TodayState());
@@ -56,7 +57,8 @@ class TodayCubit extends Cubit<TodayState> {
 
   void setSearch(String query) {
     emit(state.copyWith(search: query));
-    _rebuildLists();
+    _searchDebounce?.cancel();
+    _searchDebounce = Timer(const Duration(milliseconds: 300), _rebuildLists);
   }
 
   void setVillageFilter(String? village) {
@@ -104,6 +106,7 @@ class TodayCubit extends Cubit<TodayState> {
     _suppliersSub?.cancel();
     _entriesSub?.cancel();
     _reportsSub?.cancel();
+    _searchDebounce?.cancel();
     return super.close();
   }
 }

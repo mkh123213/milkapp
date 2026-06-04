@@ -83,7 +83,9 @@ class _LoginBodyState extends State<LoginBody> {
                   const SizedBox(height: 6),
                   TextField(
                     controller: _emailCtrl,
+                    autofocus: true,
                     keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
                     textDirection: TextDirection.ltr,
                     decoration: _inputDecoration('auth_email_hint'.tr(), Icons.mail_outline),
                   ),
@@ -93,6 +95,7 @@ class _LoginBodyState extends State<LoginBody> {
                   TextField(
                     controller: _passCtrl,
                     obscureText: _obscure,
+                    textInputAction: TextInputAction.done,
                     decoration: _inputDecoration('auth_password_hint'.tr(), Icons.lock_outline).copyWith(
                       suffixIcon: IconButton(
                         icon: Icon(_obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined, size: 20),

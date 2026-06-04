@@ -36,7 +36,7 @@ class Supplier {
       routeOrder: (d['routeOrder'] as num?)?.toInt() ?? 999,
       isActive: d['isActive'] as bool? ?? true,
       notes: d['notes'] as String?,
-      addedAt: (d['addedAt'] as Timestamp?)?.toDate() ?? DateTime.now(),
+      addedAt: (d['addedAt'] as Timestamp?)?.toDate() ?? DateTime(2024, 1, 1),
       deactivatedAt: (d['deactivatedAt'] as Timestamp?)?.toDate(),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../shared/models/supplier.dart';
 import '../../../../shared/models/milk_entry.dart';
 import '../../../../core/utils/date_utils.dart';
+import '../../../../core/constants.dart';
 import '../../data/models/dashboard_stats.dart';
 import '../../../suppliers/data/repos/suppliers_repo.dart';
 import '../../../today/data/repos/today_repo.dart';
@@ -17,6 +18,7 @@ class DashboardCubit extends Cubit<DashboardState> {
   StreamSubscription? _entriesSub;
   StreamSubscription? _weekSub;
   double _weekWeight = 0;
+  List<MilkEntry> _weekEntries = [];
 
   DashboardCubit(this._suppliersRepo, this._todayRepo, this._authRepo)
       : super(DashboardState());
@@ -41,6 +43,7 @@ class DashboardCubit extends Cubit<DashboardState> {
 
     final weekKey = MilkDateUtils.getWeekKey(DateTime.now());
     _weekSub = _todayRepo.watchEntriesForWeek(uid, weekKey).listen((entries) {
+      _weekEntries = entries;
       _weekWeight = entries.where((e) => e.entryStatus == EntryStatus.recorded).fold(0.0, (acc, e) => acc + (e.currentWeightKg ?? 0));
       _recompute();
     });
@@ -63,7 +66,15 @@ class DashboardCubit extends Cubit<DashboardState> {
     final edited = entriesMap.values.where((e) => e.isEdited).length;
     final todayWeight = entriesMap.values.where((e) => e.entryStatus == EntryStatus.recorded).fold(0.0, (acc, e) => acc + (e.currentWeightKg ?? 0));
 
-    final absent = suppliers.where((s) => !entriesMap.containsKey(s.id)).toList();
+    final today = DateTime.now();
+    final absent = suppliers.where((s) {
+      final supplierEntryKeys = _weekEntries
+          .where((e) => e.supplierId == s.id)
+          .map((e) => e.dateKey)
+          .toSet();
+      final streak = MilkDateUtils.calcAbsenceStreak(today, supplierEntryKeys, s.addedAt);
+      return streak >= AppConstants.absenceAlertDays;
+    }).toList();
 
     emit(state.copyWith(
       stats: DashboardStats(totalSuppliers: suppliers.length, receivedToday: received, pendingToday: pending, noMilkToday: noMilk, editedToday: edited, todayWeight: todayWeight, weekWeight: _weekWeight),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart' hide TextDirection;
 import 'package:url_launcher/url_launcher.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/asset_paths.dart';
@@ -40,7 +41,7 @@ class SupplierInfoCard extends StatelessWidget {
           ),
           if (!supplier.isActive) ...[
             const SizedBox(height: 6),
-            Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3), decoration: BoxDecoration(color: AppColors.divider, borderRadius: BorderRadius.circular(8)), child: const Text('غير نشط', style: TextStyle(fontSize: 11, color: AppColors.textSecondary))),
+            Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3), decoration: BoxDecoration(color: AppColors.divider, borderRadius: BorderRadius.circular(8)), child: Text('inactive'.tr(), style: const TextStyle(fontSize: 11, color: AppColors.textSecondary))),
           ],
         ],
       ),

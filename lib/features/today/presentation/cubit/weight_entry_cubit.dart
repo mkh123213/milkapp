@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../shared/models/milk_entry.dart';
 import '../../../../core/utils/date_utils.dart';
@@ -29,7 +30,7 @@ class WeightEntryCubit extends Cubit<WeightEntryState> {
         emit(const WeightEntryError('entry_already_exists'));
         return;
       }
-      final roundedWeight = (weight * 10).round() / 10;
+      final roundedWeight = double.parse(weight.toStringAsFixed(1));
       final entry = MilkEntry(
         id: '',
         supplierId: supplierId,
@@ -45,8 +46,10 @@ class WeightEntryCubit extends Cubit<WeightEntryState> {
       );
       await _todayRepo.addEntry(uid, entry);
       emit(const WeightEntrySaved());
+    } on FirebaseException catch (e) {
+      emit(WeightEntryError(e.code == 'unavailable' ? 'auth_network_error' : 'error_generic'));
     } catch (_) {
-      emit(const WeightEntryError('saved_locally'));
+      emit(const WeightEntryError('error_generic'));
     }
   }
 
@@ -77,6 +80,8 @@ class WeightEntryCubit extends Cubit<WeightEntryState> {
       );
       await _todayRepo.addEntry(uid, entry);
       emit(const WeightEntrySaved());
+    } on FirebaseException catch (e) {
+      emit(WeightEntryError(e.code == 'unavailable' ? 'auth_network_error' : 'error_generic'));
     } catch (_) {
       emit(const WeightEntryError('error_generic'));
     }

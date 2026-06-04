@@ -271,5 +271,20 @@
   "offline_banner": "Offline — will save when connected",
 
   "absent_since": "Absent for {} days",
-  "absent_week": "Absent for a week"
+  "absent_week": "Absent for a week",
+
+  "phone_error_short": "Phone number is too short (minimum 9 digits)",
+  "entry_already_exists": "An entry already exists for this supplier today",
+  "weight_label": "Weight (kg)",
+  "discard_changes_title": "Discard changes?",
+  "discard_changes_body": "You have unsaved changes. Discard them?",
+  "discard": "Discard",
+  "high_weight_warning": "Warning: The entered weight is very high",
+  "edit_weight_warning": "Warning: You won't be able to edit this weight again after saving",
+  "new_weight_label": "New Weight (kg)",
+  "custom_reason_hint": "Write reason...",
+  "edit_reason_wrong_weight": "Wrong weight",
+  "edit_reason_wrong_supplier": "Wrong supplier",
+  "edit_reason_scale_error": "Scale error",
+  "edit_reason_other": "Other"
 }

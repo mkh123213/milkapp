@@ -29,14 +29,17 @@ class EditWeightCubit extends Cubit<EditWeightState> {
     if (current is! EditWeightLoaded) return;
     emit(EditWeightSaving(current.entry));
     try {
+      final roundedWeight = double.parse(newWeight.toStringAsFixed(1));
       await _todayRepo.updateEntry(uid, entryId, {
-        'currentWeightKg': newWeight,
+        'currentWeightKg': roundedWeight,
         'editCount': 1,
         'editReason': reason,
         'editedAt': Timestamp.fromDate(DateTime.now()),
         'editedBy': _authRepo.currentUserEmail,
       });
       emit(const EditWeightSaved());
+    } on FirebaseException catch (e) {
+      emit(EditWeightError(e.code == 'unavailable' ? 'auth_network_error' : 'error_generic'));
     } catch (_) {
       emit(const EditWeightError('error_generic'));
     }

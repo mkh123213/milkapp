@@ -48,7 +48,7 @@ class SupplierDetailsCubit extends Cubit<SupplierDetailsState> {
     final uid = _uid;
     if (uid == null) return;
     final m = state.selectedMonth;
-    final from = DateTime(m.year, m.month, 1).subtract(const Duration(days: 90));
+    final from = DateTime(m.year, m.month - 3, 1);
     final to = DateTime(m.year, m.month + 1, 0);
     final entries =
         await _todayRepo.getEntriesForSupplier(uid, supplierId, from, to);

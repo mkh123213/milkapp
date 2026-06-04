@@ -57,7 +57,7 @@ class ReportsListBody extends StatelessWidget {
                   ]));
                 }
                 return RefreshIndicator(
-                  onRefresh: () async {},
+                  onRefresh: () async => context.read<ReportsListCubit>().load(),
                   child: ListView.builder(
                     itemCount: reports.length,
                     padding: const EdgeInsets.fromLTRB(12, 8, 12, 16),
