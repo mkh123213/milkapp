@@ -78,9 +78,9 @@
   "view_suppliers": "عرض المربيين ←",
 
   "today_title": "استلام اليوم",
-  "tab_pending": "لم يتم التسجيل ({})",
-  "tab_received": "تم الاستلام ({})",
-  "tab_no_milk": "0 كغ ({})",
+  "tab_pending": "لم يتم التسجيل ",
+  "tab_received": "تم الاستلام ",
+  "tab_no_milk": "0 كغ ",
   "search_hint": "بحث بالاسم أو القرية...",
   "village": "قرية",
   "enter_weight": "إدخال الوزن",

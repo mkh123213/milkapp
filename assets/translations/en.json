@@ -78,9 +78,9 @@
   "view_suppliers": "View Suppliers →",
 
   "today_title": "Today's Receiving",
-  "tab_pending": "Not Recorded ({})",
-  "tab_received": "Received ({})",
-  "tab_no_milk": "0 kg ({})",
+  "tab_pending": "Not Recorded",
+  "tab_received": "Received ",
+  "tab_no_milk": "0 kg",
   "search_hint": "Search by name or village...",
   "village": "Village",
   "enter_weight": "Enter Weight",
