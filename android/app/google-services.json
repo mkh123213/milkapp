@@ -1,0 +1,262 @@
+{
+  "project_info": {
+    "project_number": "437676062074",
+    "project_id": "owner-milk-app",
+    "storage_bucket": "owner-milk-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437676062074:android:5b7d6f41853ffb3a9312c3",
+        "android_client_info": {
+          "package_name": "com.attendance.tracker.attendance_tracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_N9oHN8zNJjhfWODiZJxSC3Wgo7uOFQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437676062074-5l8dc6v2730of0d9pnuq1gmneqcfj7ch.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.milkInvoices"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437676062074:android:cd2e82c3ba8daf9f9312c3",
+        "android_client_info": {
+          "package_name": "com.example.halib"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_N9oHN8zNJjhfWODiZJxSC3Wgo7uOFQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437676062074-5l8dc6v2730of0d9pnuq1gmneqcfj7ch.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.milkInvoices"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437676062074:android:4e9d32f1090067679312c3",
+        "android_client_info": {
+          "package_name": "com.example.milk_invoices"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_N9oHN8zNJjhfWODiZJxSC3Wgo7uOFQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437676062074-5l8dc6v2730of0d9pnuq1gmneqcfj7ch.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.milkInvoices"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437676062074:android:0394ea2188a8ea239312c3",
+        "android_client_info": {
+          "package_name": "com.example.milkapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_N9oHN8zNJjhfWODiZJxSC3Wgo7uOFQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437676062074-5l8dc6v2730of0d9pnuq1gmneqcfj7ch.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.milkInvoices"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437676062074:android:949b0bd05a7b09d69312c3",
+        "android_client_info": {
+          "package_name": "com.example.milkappnew"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_N9oHN8zNJjhfWODiZJxSC3Wgo7uOFQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437676062074-5l8dc6v2730of0d9pnuq1gmneqcfj7ch.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.milkInvoices"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437676062074:android:b24102d0215323489312c3",
+        "android_client_info": {
+          "package_name": "com.example.ourse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_N9oHN8zNJjhfWODiZJxSC3Wgo7uOFQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437676062074-5l8dc6v2730of0d9pnuq1gmneqcfj7ch.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.milkInvoices"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437676062074:android:8374f4ae4a27a8bb9312c3",
+        "android_client_info": {
+          "package_name": "com.example.test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_N9oHN8zNJjhfWODiZJxSC3Wgo7uOFQU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437676062074-egr4nson8fejrgaheo764urj8b8nep5h.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "437676062074-5l8dc6v2730of0d9pnuq1gmneqcfj7ch.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.milkInvoices"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
