@@ -1,7 +1,7 @@
 name: Build & Distribute to Firebase
 on:
   push:
-    branches: master
+    branches:  update2
 
 jobs:
   distribute:
