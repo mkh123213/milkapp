@@ -15,8 +15,10 @@ jobs:
     - run: flutter pub get
     - run: flutter build apk --release --flavor production --target lib/main.dart
     - uses: ruby/setup-ruby@v1
-      with: { ruby-version: '3.3', bundler-cache: true, working-directory: android }
+      with: { ruby-version: '3.3', bundler-cache: false }
     - run: bundle lock --add-platform x86_64-linux
+      working-directory: android
+    - run: bundle install
       working-directory: android
     - name: Distribute
       env:
