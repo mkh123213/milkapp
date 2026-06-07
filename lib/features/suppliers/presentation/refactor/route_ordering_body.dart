@@ -59,7 +59,7 @@ class _RouteOrderingBodyState extends State<RouteOrderingBody> {
             body: Column(
               children: [
                 Container(color: Colors.white, child: SafeArea(bottom: false, child: Padding(padding: const EdgeInsets.fromLTRB(16, 12, 16, 14), child: Row(children: [GestureDetector(onTap: () { if (state.changeCount == 0) Navigator.pop(context); }, child: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.divider.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.arrow_back, size: 20))), const SizedBox(width: 12), Expanded(child: Text('route_ordering_title'.tr(), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold))), GestureDetector(onTap: cubit.autoSort, child: Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8), decoration: BoxDecoration(color: AppColors.primary.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(10)), child: Text('auto_sort'.tr(), style: const TextStyle(color: AppColors.primary, fontSize: 12, fontWeight: FontWeight.bold))))])))),
-                if (state.changeCount == 0) Container(width: double.infinity, padding: const EdgeInsets.all(10), color: AppColors.noMilkBg, child: Text('drag_to_reorder'.tr(), textAlign: TextAlign.center, style: const TextStyle(color: AppColors.noMilk, fontSize: 13))),
+                Container(width: double.infinity, padding: const EdgeInsets.all(10), color: AppColors.noMilkBg, child: Text('drag_to_reorder'.tr(), textAlign: TextAlign.center, style: const TextStyle(color: AppColors.noMilk, fontSize: 13))),
                 Expanded(
                   child: state.ordered.isEmpty
                       ? const Center(child: CircularProgressIndicator())

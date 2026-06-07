@@ -70,6 +70,7 @@ class _SignupBodyState extends State<SignupBody> {
                   TextField(
                     controller: _passCtrl,
                     obscureText: _obscurePass,
+                    textDirection: TextDirection.ltr,
                     decoration: _inputDecoration('auth_password_hint'.tr(), Icons.lock_outline).copyWith(
                       suffixIcon: IconButton(icon: Icon(_obscurePass ? Icons.visibility_outlined : Icons.visibility_off_outlined, size: 20), onPressed: () => setState(() => _obscurePass = !_obscurePass)),
                     ),
@@ -80,6 +81,7 @@ class _SignupBodyState extends State<SignupBody> {
                   TextField(
                     controller: _confirmCtrl,
                     obscureText: _obscureConfirm,
+                    textDirection: TextDirection.ltr,
                     decoration: _inputDecoration('auth_re_enter_password'.tr(), Icons.lock_outline).copyWith(
                       suffixIcon: IconButton(icon: Icon(_obscureConfirm ? Icons.visibility_outlined : Icons.visibility_off_outlined, size: 20), onPressed: () => setState(() => _obscureConfirm = !_obscureConfirm)),
                     ),

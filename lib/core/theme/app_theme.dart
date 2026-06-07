@@ -31,7 +31,7 @@ class AppColors {
   static const Color divider = Color(0xFFE0E0E0);
   static const Color textPrimary = Color(0xFF212121);
   static const Color textSecondary = Color(0xFF757575);
-  static const Color textHint = Color(0xFF9E9E9E);
+  static const Color textHint = Color(0xFF757575);
 
   // Status colors
   static const Color recorded = Color(0xFF2E7D32);

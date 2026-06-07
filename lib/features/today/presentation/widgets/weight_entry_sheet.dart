@@ -10,8 +10,13 @@ import '../cubit/weight_entry_cubit.dart';
 import '../cubit/weight_entry_state.dart';
 
 void showWeightEntrySheet(BuildContext context, Supplier supplier) {
+  final controller = AnimationController(
+    duration: const Duration(milliseconds: 350),
+    vsync: Navigator.of(context),
+  );
   showModalBottomSheet(
     context: context, isScrollControlled: true,
+    transitionAnimationController: controller,
     shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
     builder: (_) => BlocProvider(create: (_) => getIt<WeightEntryCubit>(), child: _Sheet(supplier: supplier)),
   );
@@ -28,6 +33,7 @@ class _SheetState extends State<_Sheet> {
   final _wCtrl = TextEditingController();
   final _nCtrl = TextEditingController();
   bool _dirty = false;
+  bool _attempted = false;
 
   @override
   void dispose() { _wCtrl.dispose(); _nCtrl.dispose(); super.dispose(); }
@@ -36,8 +42,19 @@ class _SheetState extends State<_Sheet> {
   bool get _valid => _w != null && _w! >= AppConstants.minWeightKg && _w! <= AppConstants.maxWeightKg;
   bool get _high => _w != null && _w! >= AppConstants.highWeightThreshold;
 
+  String? get _weightError {
+    if (!_attempted) return null;
+    if (_wCtrl.text.isEmpty) return 'weight_error_positive'.tr();
+    if (_w == null || _w! < AppConstants.minWeightKg) return 'weight_error_positive'.tr();
+    if (_w! > AppConstants.maxWeightKg) return 'weight_error_too_high'.tr();
+    return null;
+  }
+
   void _save() {
-    if (!_valid) return;
+    if (!_valid) {
+      setState(() => _attempted = true);
+      return;
+    }
     context.read<WeightEntryCubit>().saveWeight(
       supplierId: widget.supplier.id, supplierName: widget.supplier.name,
       weight: _w!, notes: _nCtrl.text.trim().isEmpty ? null : _nCtrl.text.trim(),
@@ -61,7 +78,7 @@ class _SheetState extends State<_Sheet> {
       },
       child: BlocListener<WeightEntryCubit, WeightEntryState>(
         listener: (context, state) {
-          if (state is WeightEntrySaved) { Navigator.pop(context); ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('weight_saved'.tr()))); }
+          if (state is WeightEntrySaved) { final messenger = ScaffoldMessenger.of(context); Navigator.pop(context); messenger.showSnackBar(SnackBar(content: Text('weight_saved'.tr()))); }
           if (state is WeightEntryError) { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errorKey.tr()))); }
         },
         child: Padding(
@@ -75,7 +92,7 @@ class _SheetState extends State<_Sheet> {
             TextField(
               controller: _wCtrl, keyboardType: const TextInputType.numberWithOptions(decimal: true),
               inputFormatters: [FilteringTextInputFormatter.allow(RegExp(r'^\d*\.?\d{0,1}'))],
-              decoration: InputDecoration(labelText: 'weight_label'.tr(), suffixText: 'unit_kg'.tr()),
+              decoration: InputDecoration(labelText: 'weight_label'.tr(), suffixText: 'unit_kg'.tr(), errorText: _weightError),
               onChanged: (_) => setState(() => _dirty = true),
             ),
             if (_high) ...[const SizedBox(height: 8), Row(children: [
@@ -90,7 +107,7 @@ class _SheetState extends State<_Sheet> {
             BlocBuilder<WeightEntryCubit, WeightEntryState>(builder: (context, state) {
               final saving = state is WeightEntrySaving;
               return SizedBox(width: double.infinity, child: ElevatedButton(
-                onPressed: saving || !_valid ? null : _save,
+                onPressed: saving ? null : _save,
                 child: saving ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)) : Text('save'.tr()),
               ));
             }),

@@ -43,8 +43,12 @@ class _AddEditSupplierBodyState extends State<AddEditSupplierBody> {
 
   void _loadSupplier() async {
     final uid = getIt<AuthRepo>().currentUserId;
-    if (uid == null) return;
+    if (uid == null) {
+      if (mounted) context.read<AddEditSupplierCubit>().emitError('auth_required');
+      return;
+    }
     final suppliers = await getIt<SuppliersRepo>().getActiveSuppliers(uid);
+    if (!mounted) return;
     final cubit = context.read<AddEditSupplierCubit>();
     cubit.loadSupplier(suppliers, widget.supplierId!);
   }
@@ -124,5 +128,5 @@ class _AddEditSupplierBodyState extends State<AddEditSupplierBody> {
     return result ?? false;
   }
 
-  Widget _field({required TextEditingController ctrl, required String label, String? hint, String? helperText, String? icon, String? Function(String?)? validator, TextInputType? keyboardType, TextDirection? textDirection, List<TextInputFormatter>? inputFormatters, int maxLines = 1, int? maxLength}) => Padding(padding: const EdgeInsets.only(bottom: 14), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)), const SizedBox(height: 8), TextFormField(controller: ctrl, keyboardType: keyboardType, textDirection: textDirection, inputFormatters: inputFormatters, maxLines: maxLines, maxLength: maxLength, decoration: InputDecoration(hintText: hint, helperText: helperText, prefixIcon: icon != null ? Padding(padding: const EdgeInsets.all(12), child: Image.asset(icon, width: 18, height: 18)) : null, border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: AppColors.divider)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: AppColors.divider)), focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: AppColors.primary, width: 2)), contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14), counterText: ''), validator: validator)]));
+  Widget _field({required TextEditingController ctrl, required String label, String? hint, String? helperText, String? icon, String? Function(String?)? validator, TextInputType? keyboardType, TextDirection? textDirection, List<TextInputFormatter>? inputFormatters, int maxLines = 1, int? maxLength, TextInputAction? textInputAction}) => Padding(padding: const EdgeInsets.only(bottom: 14), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(label, style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14)), const SizedBox(height: 8), TextFormField(controller: ctrl, keyboardType: keyboardType, textDirection: textDirection, inputFormatters: inputFormatters, maxLines: maxLines, maxLength: maxLength, textInputAction: textInputAction ?? (maxLines > 1 ? TextInputAction.newline : TextInputAction.next), decoration: InputDecoration(hintText: hint, helperText: helperText, prefixIcon: icon != null ? Padding(padding: const EdgeInsets.all(12), child: Image.asset(icon, width: 18, height: 18)) : null, border: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: AppColors.divider)), enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: AppColors.divider)), focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(16), borderSide: const BorderSide(color: AppColors.primary, width: 2)), contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14), counterText: ''), validator: validator)]));
 }

@@ -22,7 +22,6 @@ import '../features/reports/presentation/screens/weekly_report_details_screen.da
 import '../features/settings/presentation/screens/settings_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
-final _shellNavigatorKey = GlobalKey<NavigatorState>();
 
 GoRouter createAppRouter(AuthRepo authRepo, SettingsRepo settingsRepo) {
   final authNotifier = _AuthStreamNotifier(authRepo.authStateChanges);
@@ -49,30 +48,40 @@ GoRouter createAppRouter(AuthRepo authRepo, SettingsRepo settingsRepo) {
       GoRoute(path: '/signup', builder: (_, _) => const SignUpScreen()),
       GoRoute(path: '/forgot-password', builder: (_, _) => const ForgotPasswordScreen()),
       GoRoute(path: '/onboarding', builder: (_, _) => const OnboardingScreen()),
-      ShellRoute(
-        navigatorKey: _shellNavigatorKey,
-        builder: (context, state, child) => MainShell(child: child),
-        routes: [
-          GoRoute(path: '/dashboard', builder: (_, _) => const DashboardScreen()),
-          GoRoute(path: '/today', builder: (_, _) => const TodayReceivingScreen()),
-          GoRoute(
-            path: '/suppliers',
-            builder: (_, _) => const SuppliersListScreen(),
-            routes: [
-              GoRoute(path: 'add', parentNavigatorKey: _rootNavigatorKey, builder: (_, _) => const AddEditSupplierScreen()),
-              GoRoute(path: 'edit/:id', parentNavigatorKey: _rootNavigatorKey, builder: (_, state) => AddEditSupplierScreen(supplierId: state.pathParameters['id'])),
-              GoRoute(path: 'details/:id', parentNavigatorKey: _rootNavigatorKey, builder: (_, state) => SupplierDetailsScreen(supplierId: state.pathParameters['id']!)),
-              GoRoute(path: 'route-order', parentNavigatorKey: _rootNavigatorKey, builder: (_, _) => const RouteOrderingScreen()),
-            ],
-          ),
-          GoRoute(
-            path: '/reports',
-            builder: (_, _) => const WeeklyReportsListScreen(),
-            routes: [
-              GoRoute(path: ':id', parentNavigatorKey: _rootNavigatorKey, builder: (_, state) => WeeklyReportDetailsScreen(reportId: state.pathParameters['id']!)),
-            ],
-          ),
-          GoRoute(path: '/settings', builder: (_, _) => const SettingsScreen()),
+      StatefulShellRoute.indexedStack(
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state, navigationShell) => MainShell(navigationShell: navigationShell),
+        branches: [
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/dashboard', builder: (_, _) => const DashboardScreen()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/today', builder: (_, _) => const TodayReceivingScreen()),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/suppliers',
+              builder: (_, _) => const SuppliersListScreen(),
+              routes: [
+                GoRoute(path: 'add', parentNavigatorKey: _rootNavigatorKey, builder: (_, _) => const AddEditSupplierScreen()),
+                GoRoute(path: 'edit/:id', parentNavigatorKey: _rootNavigatorKey, builder: (_, state) => AddEditSupplierScreen(supplierId: state.pathParameters['id'])),
+                GoRoute(path: 'details/:id', parentNavigatorKey: _rootNavigatorKey, builder: (_, state) => SupplierDetailsScreen(supplierId: state.pathParameters['id']!)),
+                GoRoute(path: 'route-order', parentNavigatorKey: _rootNavigatorKey, builder: (_, _) => const RouteOrderingScreen()),
+              ],
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(
+              path: '/reports',
+              builder: (_, _) => const WeeklyReportsListScreen(),
+              routes: [
+                GoRoute(path: ':id', parentNavigatorKey: _rootNavigatorKey, builder: (_, state) => WeeklyReportDetailsScreen(reportId: state.pathParameters['id']!)),
+              ],
+            ),
+          ]),
+          StatefulShellBranch(routes: [
+            GoRoute(path: '/settings', builder: (_, _) => const SettingsScreen()),
+          ]),
         ],
       ),
       GoRoute(path: '/entry/:id', parentNavigatorKey: _rootNavigatorKey, builder: (_, state) => EntryDetailsScreen(entryId: state.pathParameters['id']!)),

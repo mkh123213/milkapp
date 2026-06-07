@@ -79,20 +79,23 @@ class PendingCard extends StatelessWidget {
     );
   }
 
-  Widget _routeOrder(int order) => Container(
-    width: 36,
-    height: 36,
-    decoration: BoxDecoration(
-      color: AppColors.primary.withValues(alpha: 0.1),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Center(
-      child: Text(
-        MilkDateUtils.toArabicNumerals(order),
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: AppColors.primary,
-          fontSize: 13,
+  Widget _routeOrder(int order) => Semantics(
+    label: 'route_order'.tr(args: [order.toString()]),
+    child: Container(
+      width: 36,
+      height: 36,
+      decoration: BoxDecoration(
+        color: AppColors.primary.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text(
+          MilkDateUtils.toArabicNumerals(order),
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: AppColors.primary,
+            fontSize: 13,
+          ),
         ),
       ),
     ),
@@ -146,22 +149,29 @@ class PendingCard extends StatelessWidget {
     );
   }
 
-  Widget _actionBtn(String label, Color color, VoidCallback? onTap) => InkWell(
-    onTap: onTap,
-    borderRadius: BorderRadius.circular(8),
-    child: Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: color.withValues(alpha: 0.3)),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: color,
-          fontSize: 11,
-          fontWeight: FontWeight.bold,
+  Widget _actionBtn(String label, Color color, VoidCallback? onTap) => Semantics(
+    button: true,
+    label: label,
+    child: InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(8),
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 40),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+          decoration: BoxDecoration(
+            color: color.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: color.withValues(alpha: 0.3)),
+          ),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: color,
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
         ),
       ),
     ),

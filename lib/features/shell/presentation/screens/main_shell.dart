@@ -5,31 +5,23 @@ import '../../../../core/asset_paths.dart';
 import '../widgets/nav_bar_item.dart';
 
 class MainShell extends StatelessWidget {
-  final Widget child;
-  const MainShell({super.key, required this.child});
+  final StatefulNavigationShell navigationShell;
+  const MainShell({super.key, required this.navigationShell});
 
   static const _tabs = [
-    _NavTab('/dashboard', AssetPaths.iconHome, 'nav_home'),
-    _NavTab('/today', AssetPaths.iconClipboard, 'nav_today'),
-    _NavTab('/suppliers', AssetPaths.iconUser, 'nav_suppliers'),
-    _NavTab('/reports', AssetPaths.iconChart, 'nav_reports'),
-    _NavTab('/settings', AssetPaths.iconSettings, 'nav_settings'),
+    _NavTab(AssetPaths.iconHome, 'nav_home'),
+    _NavTab(AssetPaths.iconClipboard, 'nav_today'),
+    _NavTab(AssetPaths.iconUser, 'nav_suppliers'),
+    _NavTab(AssetPaths.iconChart, 'nav_reports'),
+    _NavTab(AssetPaths.iconSettings, 'nav_settings'),
   ];
-
-  int _indexForLocation(String location) {
-    for (int i = 0; i < _tabs.length; i++) {
-      if (location.startsWith(_tabs[i].path)) return i;
-    }
-    return 0;
-  }
 
   @override
   Widget build(BuildContext context) {
-    final location = GoRouterState.of(context).matchedLocation;
-    final currentIndex = _indexForLocation(location);
+    final currentIndex = navigationShell.currentIndex;
 
     return Scaffold(
-      body: Column(children: [const OfflineBanner(), Expanded(child: child)]),
+      body: Column(children: [const OfflineBanner(), Expanded(child: navigationShell)]),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(color: Colors.white, boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 10, offset: const Offset(0, -2))]),
         child: SafeArea(
@@ -41,7 +33,7 @@ class MainShell extends StatelessWidget {
                 final tab = _tabs[i];
                 final isActive = i == currentIndex;
                 return GestureDetector(
-                  onTap: () => context.go(tab.path),
+                  onTap: () => navigationShell.goBranch(i, initialLocation: i == currentIndex),
                   behavior: HitTestBehavior.opaque,
                   child: SizedBox(width: 64, child: NavBarItem(icon: tab.icon, labelKey: tab.labelKey, isActive: isActive)),
                 );
@@ -55,8 +47,7 @@ class MainShell extends StatelessWidget {
 }
 
 class _NavTab {
-  final String path;
   final String icon;
   final String labelKey;
-  const _NavTab(this.path, this.icon, this.labelKey);
+  const _NavTab(this.icon, this.labelKey);
 }

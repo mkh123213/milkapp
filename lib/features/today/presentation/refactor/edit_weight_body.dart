@@ -49,7 +49,8 @@ class _FormState extends State<_Form> {
   double? get _w => double.tryParse(_wCtrl.text);
   bool get _isOther => _reason == 'edit_reason_other';
   String get _reasonText => _isOther ? _rCtrl.text.trim() : (_reason?.tr() ?? '');
-  bool get _canSave => _w != null && _w! >= AppConstants.minWeightKg && _w! <= AppConstants.maxWeightKg && _w != widget.entry.currentWeightKg && _reasonText.isNotEmpty;
+  bool get _unchanged => (_w! * 10).round() == ((widget.entry.currentWeightKg ?? 0) * 10).round();
+  bool get _canSave => _w != null && _w! >= AppConstants.minWeightKg && _w! <= AppConstants.maxWeightKg && !_unchanged && _reasonText.isNotEmpty;
   double get _diff => (_w ?? widget.entry.currentWeightKg ?? 0) - (widget.entry.currentWeightKg ?? 0);
 
   void _save() {
@@ -61,7 +62,7 @@ class _FormState extends State<_Form> {
   Widget build(BuildContext context) {
     return BlocListener<EditWeightCubit, EditWeightState>(
       listener: (context, state) {
-        if (state is EditWeightSaved) { Navigator.pop(context); ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('edit_saved'.tr()))); }
+        if (state is EditWeightSaved) { final messenger = ScaffoldMessenger.of(context); Navigator.pop(context); messenger.showSnackBar(SnackBar(content: Text('edit_saved'.tr()))); }
         if (state is EditWeightError) { ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.errorKey.tr()))); }
       },
       child: SingleChildScrollView(

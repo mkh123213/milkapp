@@ -95,6 +95,7 @@ class _LoginBodyState extends State<LoginBody> {
                   TextField(
                     controller: _passCtrl,
                     obscureText: _obscure,
+                    textDirection: TextDirection.ltr,
                     textInputAction: TextInputAction.done,
                     decoration: _inputDecoration('auth_password_hint'.tr(), Icons.lock_outline).copyWith(
                       suffixIcon: IconButton(

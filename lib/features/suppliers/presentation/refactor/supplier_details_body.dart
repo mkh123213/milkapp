@@ -83,7 +83,7 @@ class _SupplierDetailsBodyState extends State<SupplierDetailsBody> with SingleTi
             children: [
               GestureDetector(onTap: () => Navigator.pop(context), child: Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: AppColors.divider.withValues(alpha: 0.5), borderRadius: BorderRadius.circular(10)), child: const Icon(Icons.arrow_back, size: 20))),
               const SizedBox(width: 12),
-              if (name != null) Expanded(child: Text(name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis)),
+              if (name != null) Expanded(child: Hero(tag: 'supplier-${widget.supplierId}', child: Material(color: Colors.transparent, child: Text(name, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold), overflow: TextOverflow.ellipsis)))),
               if (name != null)
                 GestureDetector(
                   onTap: () => context.push('/suppliers/edit/${widget.supplierId}'),

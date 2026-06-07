@@ -96,12 +96,20 @@ class WeightEntryCubit extends Cubit<WeightEntryState> {
   Future<void> undoNoMilk(String supplierId) async {
     final uid = _authRepo.currentUserId;
     if (uid == null) return;
-    final dateKey = MilkDateUtils.toDateKey(DateTime.now());
-    final entry = await _todayRepo.getEntryForDate(uid, supplierId, dateKey);
-    if (entry != null) {
-      final weekKey = entry.weekKey;
-      await _todayRepo.deleteEntry(uid, entry.id);
-      await _refreshReportIfExists(uid, weekKey);
+    emit(const WeightEntryUndoing());
+    try {
+      final dateKey = MilkDateUtils.toDateKey(DateTime.now());
+      final entry = await _todayRepo.getEntryForDate(uid, supplierId, dateKey);
+      if (entry != null) {
+        final weekKey = entry.weekKey;
+        await _todayRepo.deleteEntry(uid, entry.id);
+        await _refreshReportIfExists(uid, weekKey);
+      }
+      emit(const WeightEntryUndone());
+    } on FirebaseException catch (e) {
+      emit(WeightEntryError(e.code == 'unavailable' ? 'auth_network_error' : 'undo_failed'));
+    } catch (_) {
+      emit(const WeightEntryError('undo_failed'));
     }
   }
 

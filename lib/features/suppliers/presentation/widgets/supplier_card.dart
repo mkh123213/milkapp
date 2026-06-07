@@ -36,7 +36,7 @@ class SupplierCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(children: [
-                        Text(supplier.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)),
+                        Hero(tag: 'supplier-${supplier.id}', child: Material(color: Colors.transparent, child: Text(supplier.name, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15)))),
                         if (!supplier.isActive) ...[
                           const SizedBox(width: 6),
                           Container(padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2), decoration: BoxDecoration(color: AppColors.divider, borderRadius: BorderRadius.circular(4)), child: Text('inactive'.tr(), style: const TextStyle(fontSize: 10, color: AppColors.textSecondary))),

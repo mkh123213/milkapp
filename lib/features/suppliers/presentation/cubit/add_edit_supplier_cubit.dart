@@ -18,8 +18,14 @@ class AddEditSupplierCubit extends Cubit<AddEditSupplierState> {
     final s = suppliers.cast<Supplier?>().firstWhere(
         (s) => s?.id == id,
         orElse: () => null);
-    if (s != null) emit(AddEditSupplierLoaded(s));
+    if (s != null) {
+      emit(AddEditSupplierLoaded(s));
+    } else {
+      emit(const AddEditSupplierError('supplier_not_found'));
+    }
   }
+
+  void emitError(String key) => emit(AddEditSupplierError(key));
 
   Future<void> save({
     required String? supplierId,

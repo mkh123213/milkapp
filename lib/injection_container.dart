@@ -42,51 +42,47 @@ import 'router/app_router.dart';
 final getIt = GetIt.instance;
 
 Future<void> initDependencies() async {
-  // External
-  final prefs = await SharedPreferences.getInstance();
+  _registerExternal(await SharedPreferences.getInstance());
+  _registerServices();
+  _registerAuth();
+  _registerSuppliers();
+  _registerToday();
+  _registerReports();
+  _registerDashboard();
+  _registerSettings();
+  _registerRouter();
+}
+
+void _registerExternal(SharedPreferences prefs) {
   getIt.registerSingleton<SharedPreferences>(prefs);
   getIt.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
   getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
+}
 
-  // Services
+void _registerServices() {
   getIt.registerLazySingleton<ConnectivityService>(() => ConnectivityService());
-
-  // Data sources
-  getIt.registerLazySingleton<AuthRemoteDataSource>(
-      () => AuthRemoteDataSource(getIt<FirebaseAuth>()));
-  getIt.registerLazySingleton<SuppliersRemoteDataSource>(
-      () => SuppliersRemoteDataSource(getIt<FirebaseFirestore>()));
-  getIt.registerLazySingleton<TodayRemoteDataSource>(
-      () => TodayRemoteDataSource(getIt<FirebaseFirestore>()));
-  getIt.registerLazySingleton<ReportsRemoteDataSource>(
-      () => ReportsRemoteDataSource(getIt<FirebaseFirestore>()));
-  getIt.registerLazySingleton<SettingsDataSource>(
-      () => SettingsDataSource(getIt<SharedPreferences>()));
-
-  // Repos
-  getIt.registerLazySingleton<AuthRepo>(
-      () => AuthRepo(getIt<AuthRemoteDataSource>()));
-  getIt.registerLazySingleton<SuppliersRepo>(
-      () => SuppliersRepo(getIt<SuppliersRemoteDataSource>()));
-  getIt.registerLazySingleton<TodayRepo>(
-      () => TodayRepo(getIt<TodayRemoteDataSource>()));
-  getIt.registerLazySingleton<ReportsRepo>(
-      () => ReportsRepo(getIt<ReportsRemoteDataSource>()));
-  getIt.registerLazySingleton<SettingsRepo>(
-      () => SettingsRepo(getIt<SettingsDataSource>()));
-
-  // Global cubits (singletons)
   getIt.registerLazySingleton<ConnectivityCubit>(
       () => ConnectivityCubit(getIt<ConnectivityService>()));
+}
 
-  // Feature cubits (factory — new instance per screen)
+void _registerAuth() {
+  getIt.registerLazySingleton<AuthRemoteDataSource>(
+      () => AuthRemoteDataSource(getIt<FirebaseAuth>()));
+  getIt.registerLazySingleton<AuthRepo>(
+      () => AuthRepo(getIt<AuthRemoteDataSource>()));
   getIt.registerFactory<LoginCubit>(
       () => LoginCubit(getIt<AuthRepo>()));
   getIt.registerFactory<SignupCubit>(
       () => SignupCubit(getIt<AuthRepo>()));
   getIt.registerFactory<ForgotPasswordCubit>(
       () => ForgotPasswordCubit(getIt<AuthRepo>()));
+}
 
+void _registerSuppliers() {
+  getIt.registerLazySingleton<SuppliersRemoteDataSource>(
+      () => SuppliersRemoteDataSource(getIt<FirebaseFirestore>()));
+  getIt.registerLazySingleton<SuppliersRepo>(
+      () => SuppliersRepo(getIt<SuppliersRemoteDataSource>()));
   getIt.registerFactory<SuppliersListCubit>(
       () => SuppliersListCubit(getIt<SuppliersRepo>(), getIt<TodayRepo>(), getIt<AuthRepo>()));
   getIt.registerFactory<SupplierDetailsCubit>(
@@ -95,26 +91,47 @@ Future<void> initDependencies() async {
       () => AddEditSupplierCubit(getIt<SuppliersRepo>(), getIt<AuthRepo>()));
   getIt.registerFactory<RouteOrderingCubit>(
       () => RouteOrderingCubit(getIt<SuppliersRepo>(), getIt<AuthRepo>()));
+}
 
+void _registerToday() {
+  getIt.registerLazySingleton<TodayRemoteDataSource>(
+      () => TodayRemoteDataSource(getIt<FirebaseFirestore>()));
+  getIt.registerLazySingleton<TodayRepo>(
+      () => TodayRepo(getIt<TodayRemoteDataSource>()));
   getIt.registerFactory<TodayCubit>(
       () => TodayCubit(getIt<TodayRepo>(), getIt<SuppliersRepo>(), getIt<ReportsRepo>(), getIt<AuthRepo>()));
   getIt.registerFactory<WeightEntryCubit>(
       () => WeightEntryCubit(getIt<TodayRepo>(), getIt<AuthRepo>(), getIt<ReportsRepo>(), getIt<SuppliersRepo>()));
   getIt.registerFactory<EditWeightCubit>(
       () => EditWeightCubit(getIt<TodayRepo>(), getIt<AuthRepo>(), getIt<ReportsRepo>(), getIt<SuppliersRepo>()));
+}
 
+void _registerReports() {
+  getIt.registerLazySingleton<ReportsRemoteDataSource>(
+      () => ReportsRemoteDataSource(getIt<FirebaseFirestore>()));
+  getIt.registerLazySingleton<ReportsRepo>(
+      () => ReportsRepo(getIt<ReportsRemoteDataSource>()));
   getIt.registerFactory<ReportsListCubit>(
       () => ReportsListCubit(getIt<ReportsRepo>(), getIt<SuppliersRepo>(), getIt<AuthRepo>()));
   getIt.registerFactory<ReportDetailsCubit>(
       () => ReportDetailsCubit(getIt<ReportsRepo>(), getIt<TodayRepo>(), getIt<SuppliersRepo>(), getIt<AuthRepo>()));
+}
 
+void _registerDashboard() {
   getIt.registerFactory<DashboardCubit>(
       () => DashboardCubit(getIt<SuppliersRepo>(), getIt<TodayRepo>(), getIt<AuthRepo>()));
+}
 
+void _registerSettings() {
+  getIt.registerLazySingleton<SettingsDataSource>(
+      () => SettingsDataSource(getIt<SharedPreferences>()));
+  getIt.registerLazySingleton<SettingsRepo>(
+      () => SettingsRepo(getIt<SettingsDataSource>()));
   getIt.registerFactory<SettingsCubit>(
       () => SettingsCubit(getIt<AuthRepo>()));
+}
 
-  // Router
+void _registerRouter() {
   getIt.registerLazySingleton<GoRouter>(
       () => createAppRouter(getIt<AuthRepo>(), getIt<SettingsRepo>()));
 }

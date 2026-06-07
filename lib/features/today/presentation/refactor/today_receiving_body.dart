@@ -224,13 +224,31 @@ class TodayReceivingBody extends StatelessWidget {
     List list, {
     bool isPending = false,
   }) {
-    if (list.isEmpty)
+    if (list.isEmpty) {
+      final hasFilter = state.search.isNotEmpty || state.villageFilter != null;
       return Center(
-        child: Text(
-          'no_items'.tr(),
-          style: const TextStyle(color: AppColors.textSecondary),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              hasFilter ? 'no_results_found'.tr() : (isPending ? 'all_received'.tr() : 'no_received_today'.tr()),
+              style: const TextStyle(color: AppColors.textSecondary),
+            ),
+            if (hasFilter) ...[
+              const SizedBox(height: 8),
+              TextButton(
+                onPressed: () {
+                  final cubit = ctx.read<TodayCubit>();
+                  cubit.setSearch('');
+                  cubit.setVillageFilter(null);
+                },
+                child: Text('clear_search'.tr()),
+              ),
+            ],
+          ],
         ),
       );
+    }
     return ListView.builder(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       padding: const EdgeInsets.fromLTRB(12, 8, 12, 80),

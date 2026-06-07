@@ -286,5 +286,9 @@
   "edit_reason_wrong_weight": "Wrong weight",
   "edit_reason_wrong_supplier": "Wrong supplier",
   "edit_reason_scale_error": "Scale error",
-  "edit_reason_other": "Other"
+  "edit_reason_other": "Other",
+  "undo_failed": "Undo failed, please try again",
+  "auth_required": "Please sign in first",
+  "no_results_found": "No matching results",
+  "clear_search": "Clear search"
 }
